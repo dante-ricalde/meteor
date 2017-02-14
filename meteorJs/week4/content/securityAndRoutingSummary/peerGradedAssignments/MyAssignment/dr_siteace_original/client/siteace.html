@@ -1,0 +1,245 @@
+<head>
+  <title>siteace</title>
+</head>
+
+<template name="ApplicationLayout">
+	{{> yield "navbar"}}
+	{{> yield "main"}}	
+	{{> yield "site_add_confirm"}}
+</template>
+
+<template name="navbar">
+	<!-- navbar  - you will be putting the login functions here -->
+	<nav class="navbar navbar-default">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <a class="navbar-brand" href="#">
+	        Site Ace
+	      </a>
+	    </div>
+	    <div id="navbar">
+            <ul class="nav navbar-nav navbar-right loging">
+               <li>{{> loginButtons}}</li>
+            </ul>
+        </div>	    
+	  </div>
+	</nav>
+</template>
+
+<template name="mainContent">
+	<div class="container">
+		<div class="row row-content">
+			<div class="col-xs-9">
+				{{> website_form}}
+				{{> website_search}}
+				{{> website_list}}
+			</div>
+			<div class="col-xs-3">
+				{{> yield "RightPanelTemplate"}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<body>	
+	
+</body>
+
+<template name="recommended_sites">	
+	<div class="row row-content">
+		<div class="col-xs-12 text-center">
+			<strong>Recommended Sites</strong>
+		</div>		
+		<div class="col-xs-12 spacer">
+			<dl class="dl-horizontal">
+				{{#each recommendSites}}
+				<dt><a href="/website/{{_id}}">{{title}}</a></dt>
+  				<dd><span class="text-overflow">{{description}}</span></dd>
+  				{{/each}}
+			</dl>
+		</div>
+	</div>	
+</template>
+
+<template name="website_search">
+	<div class="row row-content">
+		<div class="col-xs-12 has-feedback form-control-static">
+			<input type="text" id="sites_search" class="form-control js-set-site-filter" placeholder="Search">
+			<span class="glyphicon glyphicon-search form-control-feedback" aria-hidden="true" style="padding-right: 20px;"></span>
+		</div>
+	</div>
+</template>
+
+<template name="website_form">
+	<a class="btn btn-default js-toggle-website-form" href="#">
+  		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+	</a>
+	<div id="website_form" class="hidden_div">
+		<form class="js-save-website-form">
+		  <div class="form-group">
+		    <label for="url">Site address</label>
+		    <input type="url" class="form-control" id="url" placeholder="http://www.mysite.com" required>
+		  </div>
+		  <!--<div class="form-group">
+		    <label for="title">Title</label>
+		    <input type="text" class="form-control" id="title" placeholder="Mysite">
+		  </div>
+		  <div class="form-group">
+		    <label for="description">Description</label>
+		    <input type="text" class="form-control" id="description" placeholder="I found this site really useful for ..." required>
+		  </div>-->
+
+		  <button type="submit" class="btn btn-default">Submit</button>
+		</form>
+	</div>
+</template>
+
+<!-- template that displays several website items -->
+<template name="website_list">
+	<ol>
+	{{#each websites}}
+	{{>website_item}}
+	{{/each}}
+	</ol>
+</template>
+
+<!-- template that displays individual website entries -->
+<template name="website_item">
+<li>
+	<!--<a href="{{url}}">{{title}}</a>-->
+	<a href="/website/{{_id}}">{{title}}</a>
+	<p>
+		{{description}}
+	</p>
+	<p>
+		URL: {{url}}
+	</p>
+	<p>
+		Added on: {{getFormattedDate createdOn}}
+	</p>
+	<p>
+		Upvotes: {{#if upvotes}}{{upvotes}}{{else}}0{{/if}}, Downvotes: {{#if downvotes}}{{downvotes}}{{else}}0{{/if}}
+	</p>
+
+	<a href="#" class="btn btn-default js-upvote">
+		<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+	</a>
+	<a href="#" class="btn btn-default js-downvote">
+		<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+	</a>
+	<!-- you will be putting your up and down vote buttons in here! -->
+</li>
+</template>
+
+<template name="website">
+	<div class="container">
+		<a href="{{url}}">{{title}}</a>
+		<p>
+			{{description}}
+		</p>		
+		<p>
+			Added on: {{getFormattedDate  createdOn}}
+		</p>
+		<p>
+			Upvotes: {{#if upvotes}}{{upvotes}}{{else}}0{{/if}}, Downvotes: {{#if downvotes}}{{downvotes}}{{else}}0{{/if}}
+		</p>
+
+		<a href="#" class="btn btn-default js-upvote">
+			<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+		</a>
+		<a href="#" class="btn btn-default js-downvote">
+			<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+		</a>
+		<!-- you will be putting your up and down vote buttons in here! -->
+		<br>
+		<br>
+		<p>
+			<strong>Comments :</strong>
+			<ul class="list-unstyled">
+				{{#each comments}}
+					<li>
+						<blockquote>
+							<p>{{rating}} Stars</p>
+							<p>{{comment}}</p>
+							<footer>{{getPostedBy}}, {{getFormattedDate postedAt}}</footer>
+						</blockquote>
+					</li>
+				{{/each}}
+			</ul>
+		</p>
+		<br><br>
+		{{> comments_form}}
+		<div>
+			<a href="/" class="btn btn-primary pull-right">Back</a>
+		</div>
+	</div>
+</template>
+
+<template name="comments_form">
+	<div class="row row-content">
+		<div class="col-xs-12">
+			<ul class="list-unstyled">
+				<li>
+					<blockquote>						
+						<p>{{editingComment.rating}} Stars</p>
+						<p>{{editingComment.comments}}</p>
+						<footer>{{#if currentUser}}{{currentUser.username}}{{/if}}, {{getFormattedDate editingComment.postedAt}}</footer>
+					</blockquote>
+				</li>
+			</ul>
+			<form class="form-horizontal js-save-comment-form js-refresh-editingComment" name="commentForm">
+				<div class="form-group">
+					<label for="numpeople" class="col-sm-2 control-label">Number of Stars</label>
+					<div class="col-sm-10">
+						<label class="radion-inline">
+							<input type="radio" name="rating" id="rating1" value="1"> 1
+						</label>
+						<label class="radion-inline">
+							<input type="radio" name="rating" id="rating2" value="2"> 2
+						</label>
+						<label class="radion-inline">
+							<input type="radio" name="rating" id="rating3" value="3"> 3
+						</label>
+						<label class="radion-inline">
+							<input type="radio" name="rating" id="rating4" value="4"> 4
+						</label>
+						<label class="radion-inline">
+							<input type="radio" name="rating" id="rating5" value="5" checked> 5
+						</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="comments" class="col-xs-2 control-label">Your Comments</label>
+					<div class="col-xs-10">
+						<textarea class="form-control" rows="12" name="comments" required></textarea>						
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-primary">Submit Comment</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</template>
+
+<template name="site_add_confirm">
+	<div class="modal fade" id="site_add_confirm">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <div class="modal-title">
+	        	{{message.title}}
+	        </div>
+	      </div>
+	      <div class="modal-body">        	
+	        	{{message.message}}
+	      </div>
+	      <div class="modal-footer">
+	        <button class="btn btn-default" data-dismiss="modal">Cerrar</button>
+	      </div>  
+	    </div>
+	  </div>
+	</div>
+</template>

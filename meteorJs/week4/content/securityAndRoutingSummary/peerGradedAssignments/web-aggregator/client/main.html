@@ -1,0 +1,290 @@
+<head>
+  <title>webagg</title>
+</head>
+
+<body>
+
+</body>
+
+<template name="ApplicationLayout">
+    {{>yield "navbar"}}
+    {{>yield "main"}}
+</template>
+
+<template name="loginpage">
+    <div class="container">
+        <div class="flat-form">
+            <ul class="tabs">
+                <li><a href="#login" class="js-change-tab active">Login</a></li>
+                <li><a href="#register" class="js-change-tab">Register</a></li>
+                <li><a href="#reset" class="js-change-tab">Reset Password</a></li>
+            </ul>
+            <div id="login" class="form-action show">
+                <h1>Login on webagg</h1>
+                <p>If you have created an account pls input the email or username and password you provided, else register to login</p>
+                <form id="js-loginForm-submit">
+                    <ul>
+                        <li><input type="text" name="Username" placeholder="Username" /> </li>
+                        <li><input type="password" name="password" placeholder="Password" /></li>
+                        <li><input type="submit" value="Login" class="button" /></li>
+                    </ul>
+                </form>
+            </div>
+
+            <div id="register" class="form-action hide">
+                <h1>Register</h1>
+                <p>
+                    To register fill in all the required field, pls ensure that all fields have the correct information.
+                </p>
+                <form id="js-regForm-register">
+                    <ul>
+                        <li><input type="text" name="firstName" placeholder="First name" /><input type="text" name="lastName" placeholder="last name" /></li>
+                        <input type="text" name="Username" placeholder="Username" />
+                        <input type="text" name="Email" placeholder="Email" />
+                        <input type="date" name="dateOfBirth" placeholder="Date Of Birth" />
+                        <li><input type="password" name="password" placeholder="Password" /></li>
+                        <li><input type="password" name="passwordc" placeholder="Confirm Password" /></li>
+                        <li><input type="submit" value="Sign Up" class="button" /></li>
+                    </ul>
+                </form>
+            </div>
+            <!--/#register.form-action-->
+            <div id="reset" class="form-action hide">
+                <h1>Reset Password</h1>
+                <p>
+                    To reset your password enter your email and your birthday
+                    and we'll send you a link to reset your password.
+                </p>
+                <form id="js-password-reset">
+                    <ul>
+                        <li> <input type="text" placeholder="Email" /></li>
+                        <li><input type="text" placeholder="Birthday" /></li>
+                        <li><input type="submit" value="Send" class="button" /></li>
+                    </ul>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</template>
+
+<template name="nav">
+    <nav class="container-fluid">
+        <nav class="nav-bar-top">
+            <div class="nav-content">
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                <input id="logout" type="submit" value="logout" class="button" />
+            </div>
+        </nav>
+    </nav>
+</template>
+
+<template name="search">
+    <style>
+        .inp{
+            opacity: 1;
+            width: 400px !important;
+            font-size: 20px;
+        }
+        .search {
+            float: none;
+            position: absolute;
+            top: 10%;
+            left: 47%;
+            width: 400px;
+            height: 200px;
+            margin: 0px 0 0 -150px;
+        }
+        .overlay{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            background-color: rgba(255, 255, 255,0.9);
+        }
+    </style>
+    <section class="overlay">
+        <div class="page-header clearfix">
+            <div class="pull-center">
+                <form class="search">
+                   <input id="edValue" class="inp" type="text" name="searchinp" placeholder="search" />
+                </form>
+            </div>
+        </div>
+        <div class="container-fluid">
+             <div class="row contentRow">
+                {{#each results}}
+                <div class="col-md-3 col-xs-12 col-sm-12 contentCon" id="{{_id}}">
+                    <ul class="tabs">
+                        <li><a href="#user_{{_id}}" class="js-change-tab active {{_id}}">User Input</a></li>
+                        <button class="js-delete btn btn-danger btn-xs delete">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                        <li><a href="#web_{{_id}}" class="js-change-tab js-web {{_id}}">Website information</a></li>
+
+                    </ul>
+
+                    <div id="user_{{_id}}" class="content show {{_id}}">
+                        <a href="{{url}}">{{title}}</a>
+                        <p>{{description}}</p>
+                        <p>posted on {{createdOn}}</p>
+                    </div>
+
+                    <div id="web_{{_id}}" class="content hide {{_id}}">
+                       <p>{{metadata}}</p>
+                    </div>
+                    <div class="thumbs">
+                        <button data-toggle="tooltip" data-placement="right" title="upvoted by {{thumbsUpBy}}" type="button" class="js-thumbs-up btn like">
+                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>{{thumbsUp}}
+                        </button>
+
+                        <button type="button" class="js-comments btn comments">
+                            <span class="glyphicon glyphicon-comment" aria-hidden="true"></span> Comments
+                        </button>
+
+                        <button data-toggle="tooltip" data-placement="left" title="downvoted by {{thumbsDownBy}}" type="button" class="js-thumbs-down btn unlike">
+                            <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>{{thumbsDown}}
+                        </button>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </section>
+
+</template>
+
+<template name="dashboard">
+    <style>
+        .contentCon{
+            padding: 0px;
+        }
+    </style>
+    <div class="container-fluid">
+        <div class="row contentRow">
+
+        </div>
+    </div>
+
+    <div class="container-fluid">
+         <div class="row contentRow">
+             <div class="col-md-3 col-xs-12 contentForm">
+                <ul class="tabs"></ul>
+                <div class="form-action">
+                    <form id="js-submitForm-submit">
+                        <ul>
+                            <li><input type="text" name="title" placeholder="title" /> </li>
+                            <li><input type="text" name="url" placeholder="url" /> </li>
+                            <li><input type="text" name="description" placeholder="description" /> </li>
+                            <li><input type="submit" value="submit" class="button" /></li>
+                        </ul>
+                    </form>
+                    <p class='invalid'>invalid url</p>
+                </div>
+            </div>
+            {{#each websites}}
+            <div class="col-md-3 col-xs-12 col-sm-12 contentCon" id="{{_id}}">
+                <ul class="tabs">
+                    <li><a href="#user_{{_id}}" class="js-change-tab active {{_id}}">User Input</a></li>
+                    <button class="js-delete btn btn-danger btn-xs delete">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                    <li><a href="#web_{{_id}}" class="js-change-tab js-web {{_id}}">Http content</a></li>
+
+                </ul>
+
+                <div id="user_{{_id}}" class="content show {{_id}}">
+                    <a href="{{url}}">{{title}}</a>
+                    <p>{{description}}</p>
+                    <p>posted on {{createdOn}}</p>
+                </div>
+
+                <div id="web_{{_id}}" class="content hide {{_id}}">
+                  <img class="webimg" src="{{imageWebs}}" />
+                  <p class="limitTextTitle">{{{titleWeb}}}</p>
+                  <br>
+                  <p class="limitTextDesc">{{{descriptionWeb}}}</p>
+
+                </div>
+                <div class="thumbs">
+                    <button  data-tooltip="upvoted by {{thumbsUpBy}}" data-tooltip-position="top" type="button" class="js-thumbs-up btn like">
+                        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>{{thumbsUp}}
+                    </button>
+
+                    <button  data-tooltip="comments by {{commentsBy}}" data-tooltip-position="top" type="button" class="js-comments btn comments">
+                        <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>{{commentsNo}} Comments
+                    </button>
+
+                    <button data-tooltip="downvoted by {{thumbsDownBy}}" data-tooltip-position="top" type="button" class="js-thumbs-down btn unlike">
+                        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>{{thumbsDown}}
+                    </button>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</template>
+
+
+<!--websites-->
+
+
+
+<template name="website">
+    <style>
+        .contentCon{
+            width:60%;
+            height: auto;
+            margin: 50px 20%;
+        }
+        .content {
+            padding: 10px 30px;
+        }
+    </style>
+    <div class="container contentCon" id="{{_id}}">
+        <div class="row">
+            <ul class="col-md-12 col-sm-12 col-xs-12 col-lg-12 tabs thumbs">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <div class="dropdown">
+                     <button class="dropbtn">Options</button>
+                    <div id="myDropdown" class="dropdown-content">
+                        <a href="#"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>{{thumbsUp}}</a>
+                        <a href="#"><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>{{thumbsDown}}</a>
+                        <a href="#"><span class="glyphicon glyphicon-trash"></span>...</a>
+                    </div>
+                </div>
+
+            </ul>
+
+            <div id="user_{{_id}}" class="col-md-12 col-sm-12 col-xs-12 col-lg-12 content {{_id}}">
+              <a href="{{url}}"><img class="webimgCom" src="{{imageWebs}}" /></a>
+              <p class="tle">{{{titleWeb}}}</p>
+              <br>
+              <p class="">{{{descriptionWeb}}}. {{description}}</p>
+              <p>posted on {{createdOn}}</p>
+            </div>
+        </div>
+        <div class="form-action">
+            <form id="js-submit-comments">
+                <ul>
+                    <li><input type="text" name="comment" placeholder="title" /> </li>
+                    <li><input type="submit" value="submit" class="button" /></li>
+                </ul>
+            </form>
+        </div>
+
+        <div class="row">
+            {{#each comments}}
+            <div class="col-md-8">
+                <div class="comment-box">
+                    <p>{{comment}}</p>
+                    <h4>{{createdBy}}</h4>
+                    <code>{{createdOn}}</code>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</template>

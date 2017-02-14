@@ -1,0 +1,20 @@
+/* CSS declarations go here */
+.hidden_div{
+	display:none;
+}
+
+.loging {
+	padding-top: 15px;
+	padding-right: 200px;
+}
+
+.text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+
+.spacer {
+	margin-top: 10px;
+}
