@@ -1,0 +1,8 @@
+<html>
+	<h1>Hi this is a great editor.</h1>
+    <p>greetings from Peru</p>
+    <button onclick="alert('tada!!!')">click me</button>
+    <ol>
+    	<li>list item 1</li>
+    </ol>
+</html>
