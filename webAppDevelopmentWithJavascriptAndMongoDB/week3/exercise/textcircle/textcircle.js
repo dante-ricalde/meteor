@@ -42,14 +42,18 @@ if (Meteor.isClient) {
 	});*/
 
 	Template.editor.helpers({
-		docid:function(){
+		/*docid:function(){
 			var doc = Documents.findOne();
 			if (doc) {
 				return doc._id;
 			} else {
 				return undefined;
 			}	
-		},
+		},*/
+		docid: function(){
+			setupCurrentDocument();
+			return Session.get("docid");
+		}
 		config:function(){
 			return function (editor) {
 				editor.setOption("lineNumbers", true);
@@ -89,6 +93,12 @@ if (Meteor.isClient) {
 		"click .js-add-doc": function(event){
 			event.preventDefault();
 			console.log("Add a new doc!");
+			if (!Meteor.user()) { // user not available
+				alert("You need to login first!");
+			} else {
+				// They are logged in ...lets insert a doc
+				Meteor.call('addDoc');
+			}
 		}
 	});
 
@@ -105,6 +115,15 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
+	addDoc: function() {
+		var doc;
+		if (!this.userId) { // not logged in
+			return;
+		} else {
+			doc = {owner:this.userId, createdOn:new Date(), title:"my new doc"};
+			Documents.insert(doc);
+		}
+	},
 	addEditingUser: function() {
 		var doc, user, eusers;
 		doc = Documents.findOne();
@@ -126,6 +145,16 @@ Meteor.methods({
 		EditingUsers.upsert({_id: eusers._id}, eusers);
 	}
 });
+
+function setupCurrentDocument() {
+	var doc;
+	if (!Session.get("docid")){// no doc id set yet
+		doc = Documents.findOne();
+		if (doc) {
+			Session.set("docid", doc._id);
+		}
+	}
+}
 
 function fixObjectKeys(obj) {
 	var newObj = {};
