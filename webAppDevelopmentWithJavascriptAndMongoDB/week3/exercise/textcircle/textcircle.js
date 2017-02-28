@@ -53,7 +53,7 @@ if (Meteor.isClient) {
 		docid: function(){
 			setupCurrentDocument();
 			return Session.get("docid");
-		}
+		},
 		config:function(){
 			return function (editor) {
 				editor.setOption("lineNumbers", true);
@@ -97,7 +97,12 @@ if (Meteor.isClient) {
 				alert("You need to login first!");
 			} else {
 				// They are logged in ...lets insert a doc
-				Meteor.call('addDoc');
+				var id = Meteor.call('addDoc', function (err, res) {
+					if (!err) { // all good
+						console.log('event callback received id: ' + res);
+						Session.set("docid", res);
+					}
+				});
 			}
 		}
 	});
@@ -121,7 +126,9 @@ Meteor.methods({
 			return;
 		} else {
 			doc = {owner:this.userId, createdOn:new Date(), title:"my new doc"};
-			Documents.insert(doc);
+			var id = Documents.insert(doc);
+			console.log('addDoc method: got an id ' + id);
+			return id;
 		}
 	},
 	addEditingUser: function() {
@@ -149,10 +156,13 @@ Meteor.methods({
 function setupCurrentDocument() {
 	var doc;
 	if (!Session.get("docid")){// no doc id set yet
+		console.log('Setting the docid in the session.');
 		doc = Documents.findOne();
 		if (doc) {
 			Session.set("docid", doc._id);
 		}
+	} else {
+		console.log('Using the docid from Session');
 	}
 }
 
