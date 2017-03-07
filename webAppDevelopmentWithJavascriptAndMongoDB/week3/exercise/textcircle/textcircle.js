@@ -86,6 +86,18 @@ if (Meteor.isClient) {
 		}
 	});
 
+	Template.navbar.helpers({
+		documents: function() {
+			return Documents.find({});
+		}
+	});
+
+	Template.docMeta.helpers({
+		document: function() {
+			return Documents.findOne({_id:Session.get("docid")});
+		}
+	});
+
 	///////////////
 	//// EVENTS
 	//////////////
@@ -104,6 +116,10 @@ if (Meteor.isClient) {
 					}
 				});
 			}
+		},
+		"click .js-load-doc": function(event){
+			console.log(this);
+			Session.set("docid", this._id);
 		}
 	});
 

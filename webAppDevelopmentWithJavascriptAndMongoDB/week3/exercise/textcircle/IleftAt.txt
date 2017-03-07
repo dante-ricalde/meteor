@@ -94,3 +94,6 @@ connect to meteor mongo using cmd, because in cygdrive it doesn't work ok
 
 28/02/2016
   Starting Document list and editable title
+
+07/03/2017
+  Editable title video 5:24
