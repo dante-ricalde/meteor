@@ -97,3 +97,6 @@ connect to meteor mongo using cmd, because in cygdrive it doesn't work ok
 
 07/03/2017
   Editable title video 5:24
+
+12/03/2017
+  Publish and subscribe video 00:00
