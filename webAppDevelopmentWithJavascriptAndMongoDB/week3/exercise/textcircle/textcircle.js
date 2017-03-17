@@ -11,6 +11,9 @@ Meteor.methods({
 });
 */
 if (Meteor.isClient) {
+
+	Meteor.subscribe("documents");
+	Meteor.subscribe("editingUsers");
 	/*
 	// update the session current_date
 	// variable every 1000 ms
@@ -88,7 +91,7 @@ if (Meteor.isClient) {
 
 	Template.navbar.helpers({
 		documents: function() {
-			return Documents.find({});
+			return Documents.find({isPrivate: false});
 		}
 	});
 
@@ -151,7 +154,15 @@ if (Meteor.isServer) {
 		if (!Documents.findOne()) { // no documents yet!
 			Documents.insert({title: "my new document"});
 		}
+	});
 
+	// I am only allowed to see whatever documents come back from this publish function
+	Meteor.publish("documents", function(){
+		return Documents.find({isPrivate:false});
+	});
+
+	Meteor.publish("editingUsers", function(){
+		return EditingUsers.find();
 	});
 }
 
