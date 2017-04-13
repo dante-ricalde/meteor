@@ -1,6 +1,3 @@
-
-
-        
 Accounts.ui.config({
     requestPermissions: {},
     extraSignupFields: [{
@@ -28,7 +25,7 @@ Accounts.ui.config({
         inputType: 'radio',
         radioLayout: 'vertical',    // It can be 'inline' or 'vertical'
         data: [{                    // Array of radio options, all properties are required
-            id: 1,                  // id suffix of the radio element
+    		id: 1,                  // id suffix of the radio element
             label: 'Male',          // label for the radio element
             value: 'm'              // value of the radio element, this will be saved.
           }, {
@@ -56,7 +53,7 @@ Accounts.ui.config({
         visible: true
     }, {
         fieldName: 'terms',
-        fieldLabel: 'I accept the terms and conditions <a href="">See t and x...</a>',
+        fieldLabel: 'I accept the terms and conditions',
         inputType: 'checkbox',
         visible: true,
         saveToProfile: false,
@@ -70,4 +67,3 @@ Accounts.ui.config({
         }
     }]
 });
-
