@@ -112,3 +112,6 @@ connect to meteor mongo using cmd, because in cygdrive it doesn't work ok
 
 23/04/2017
   Iron:router video 00:00
+
+29/04/2017
+  Grid layout video 00:00

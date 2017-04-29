@@ -1,10 +1,7 @@
-<head>
-	<title>textcircle</title>
-</head>
-
-<body>
-
-	{{> navbar}}
-
-	
-</body>
+<template name="ApplicationLayout">
+	<head>
+		<title>textcircle</title>
+	</head>
+	{{> yield "header"}}
+	{{> yield "main"}}
+</template>
