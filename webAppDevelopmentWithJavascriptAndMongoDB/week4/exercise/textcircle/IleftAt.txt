@@ -115,3 +115,6 @@ connect to meteor mongo using cmd, because in cygdrive it doesn't work ok
 
 29/04/2017
   Grid layout video 00:00
+
+04/05/2017
+  Find and Findone video 00:00
