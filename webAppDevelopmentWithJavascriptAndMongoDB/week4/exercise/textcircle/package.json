@@ -7,9 +7,10 @@
     "start": "meteor run"
   },
   "dependencies": {
-    "babel-runtime": "^6.18.0",
+    "babel-runtime": "^6.23.0",
     "meteor-node-stubs": "~0.2.0",
-    "node-pre-gyp": "0.6.32"
+    "node-pre-gyp": "0.6.32",
+    "string": "^3.3.3"
   },
   "binary": {
     "module_name": "your_module",

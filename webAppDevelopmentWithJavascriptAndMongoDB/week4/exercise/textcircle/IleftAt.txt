@@ -118,3 +118,12 @@ connect to meteor mongo using cmd, because in cygdrive it doesn't work ok
 
 04/05/2017
   Find and Findone video 00:00
+
+09/05/2017
+  Comment box video 00:00
+
+10/05/2017
+  Comment box video 7:26
+  I get this error trying to loading a document (docItem)(I have run npm install mongo-object so solve a previous error)
+  autoForm.js:75 Uncaught TypeError: Cannot read property 'id' of null
+    at Blaze.View.<anonymous> (autoForm.js:75)

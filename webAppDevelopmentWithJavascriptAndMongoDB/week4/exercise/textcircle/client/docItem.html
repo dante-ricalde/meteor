@@ -25,7 +25,11 @@
 				{{> viewer}}
 			</div>
 		</div>
-	</div>
+
+
+		{{> insertCommentForm}}
+
+	</div><!-- end of docItem container -->
 
 </template>
 
@@ -57,4 +61,8 @@
 	{{#each users}}
 		<span class="label label-success">{{[first-name]}}</span>
 	{{/each}}
+</template>
+
+<template name="insertCommentForm">
+	{{> quickForm collection="Comments" id="insertCommentForm" type="method" meteormethod="addComment"}}
 </template>
