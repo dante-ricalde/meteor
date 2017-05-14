@@ -133,6 +133,11 @@ Template.docList.helpers({
 	}
 });
 
+Template.insertCommentForm.helpers({
+	docid: function () {
+		return Session.get("docid");
+	}
+});
 
 ///////////////
 //// EVENTS

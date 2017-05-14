@@ -12,5 +12,14 @@ Comments.attachSchema(new SimpleSchema({
 		type: String,
 		label: "Comment",
 		max: 1000
-	}
+	},
+	docid: {
+		type: String
+	}/*,
+	createdOn: {
+		type: Date
+	},
+	userId: {
+		type: String
+	}*/
 }));

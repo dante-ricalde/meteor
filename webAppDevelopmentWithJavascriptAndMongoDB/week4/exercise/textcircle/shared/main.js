@@ -14,6 +14,8 @@ Meteor.methods({
 		if (this.userId) {// we have a user
 			comment.createdOn = new Date();
 			comment.userId = this.userId;
+			console.log('Inserting the comment');
+			console.log(comment);
 			return Comments.insert(comment);
 		}
 		return;

@@ -124,6 +124,10 @@ connect to meteor mongo using cmd, because in cygdrive it doesn't work ok
 
 10/05/2017
   Comment box video 7:26
-  I get this error trying to loading a document (docItem)(I have run npm install mongo-object so solve a previous error)
+  I get this error trying to load a document (docItem)(I have run npm install mongo-object so solve a previous error)
   autoForm.js:75 Uncaught TypeError: Cannot read property 'id' of null
-    at Blaze.View.<anonymous> (autoForm.js:75)
+    at Blaze.View.<anonymous> (autoForm.js:75) (100%)
+    Solved: I had to install only (meteor.bat add aldeed:autoform@5.5.0) autoform version 5.5 and it worked, it was not necessary to install aldeed:collection2
+
+11/05/2017
+  
