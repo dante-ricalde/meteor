@@ -15,11 +15,8 @@ Comments.attachSchema(new SimpleSchema({
 	},
 	docid: {
 		type: String
-	}/*,
-	createdOn: {
-		type: Date
 	},
-	userId: {
+	owner: {
 		type: String
-	}*/
+	}
 }));

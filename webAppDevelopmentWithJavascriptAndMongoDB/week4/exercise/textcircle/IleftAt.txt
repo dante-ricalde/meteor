@@ -130,4 +130,4 @@ connect to meteor mongo using cmd, because in cygdrive it doesn't work ok
     Solved: I had to install only (meteor.bat add aldeed:autoform@5.5.0) autoform version 5.5 and it worked, it was not necessary to install aldeed:collection2
 
 11/05/2017
-  
+  Comment list video 00:00
