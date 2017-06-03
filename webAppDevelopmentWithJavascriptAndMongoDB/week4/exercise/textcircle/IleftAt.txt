@@ -131,3 +131,9 @@ connect to meteor mongo using cmd, because in cygdrive it doesn't work ok
 
 11/05/2017
   Comment list video 00:00
+
+19/05/2017
+  SimpleSchemas, autoform and code re-organisation summary video 00:00
+
+26/05/2017
+  Peer-graded Assignment: M-Instant part 4 - multiple chatrooms!
